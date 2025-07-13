@@ -1,5 +1,6 @@
 package com.andremugabo.Budgy.core.user.model;
 
+import com.andremugabo.Budgy.core.alert.model.Alert;
 import com.andremugabo.Budgy.core.base.AbstractBaseEntity;
 import com.andremugabo.Budgy.core.expenses.model.Expense;
 import com.andremugabo.Budgy.core.income.model.Income;
@@ -38,12 +39,14 @@ public class Users extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role",nullable = false)
     private EUserRole role;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     List<Savings> savings;
-    @OneToMany(mappedBy = "income")
+    @OneToMany(mappedBy = "users")
     List<Income> incomes;
-    @OneToMany(mappedBy = "expense")
+    @OneToMany(mappedBy = "users")
     List<Expense> expenses;
+    @OneToMany(mappedBy = "users")
+    List<Alert> alerts;
 
 
 }

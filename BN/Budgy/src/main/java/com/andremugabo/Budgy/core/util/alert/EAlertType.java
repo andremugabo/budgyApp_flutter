@@ -1,0 +1,13 @@
+package com.andremugabo.Budgy.core.util.alert;
+
+public enum EAlertType {
+    GENERAL, WELCOME,BUDGET_ALERT,
+    BUDGET_EXCEEDED,
+    SAVINGS_GOAL_PROGRESS,
+    SAVINGS_GOAL_REACHED,
+    BILL_REMINDER,
+    UNUSUAL_SPENDING,
+    INCOME_RECEIVED,
+    FINANCIAL_TIP,
+    SYSTEM_ALERT
+}

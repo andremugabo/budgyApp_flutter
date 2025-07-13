@@ -16,9 +16,6 @@ import java.time.LocalDate;
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Savings extends AbstractBaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
     @Column(nullable = false)
     private String name;
     @Column(name = "target_amount", nullable = false)
@@ -32,7 +29,8 @@ public class Savings extends AbstractBaseEntity {
     private ESavingsPriority priority;
     @Column(columnDefinition = "TEXT",nullable = false)
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private Users users;
+
 }
