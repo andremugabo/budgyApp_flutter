@@ -15,9 +15,6 @@ import java.math.BigDecimal;
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class Expense extends AbstractBaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
     @Column(nullable = false)
     @Min(value = 0)
     private BigDecimal amount;
