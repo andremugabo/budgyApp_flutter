@@ -15,17 +15,19 @@ import java.math.BigDecimal;
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Income extends AbstractBaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+
     @Column(nullable = false)
     private BigDecimal amount;
     @Column(nullable = false)
     private String source;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "income_type",nullable = false)
     private EIncomeType incomeType;
+    @Column(nullable = false)
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private Users users;
+
 
 }
