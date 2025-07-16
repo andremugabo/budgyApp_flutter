@@ -1,0 +1,58 @@
+{
+    "folders": [
+        {
+            "name": "FN/ios/Runner.xcworkspace",
+            "path": "../.."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "test": true,
+            "pubspec.yaml": true,
+            "pubspec.lock": true,
+            "lib": true,
+            "build": true,
+            "budgy.iml": true,
+            "assets": true,
+            "android": true,
+            "analysis_options.yaml": true,
+            "README.md": true,
+            ".metadata": true,
+            ".idea": true,
+            ".flutter-plugins-dependencies": true,
+            ".flutter-plugins": true,
+            ".dart_tool": true,
+            ".vscode/xcode/fifo": true,
+            ".vscode/xcode/bundles": true
+        },
+        "search.exclude": {
+            "test": true,
+            "pubspec.yaml": true,
+            "pubspec.lock": true,
+            "lib": true,
+            "build": true,
+            "budgy.iml": true,
+            "assets": true,
+            "android": true,
+            "analysis_options.yaml": true,
+            "README.md": true,
+            ".metadata": true,
+            ".idea": true,
+            ".flutter-plugins-dependencies": true,
+            ".flutter-plugins": true,
+            ".dart_tool": true,
+            ".vscode/xcode/fifo": true,
+            ".vscode/xcode/bundles": true
+        },
+        "swift.autoGenerateLaunchConfigurations": false,
+        "swift.disableAutoResolve": true,
+        "swift.sourcekit-lsp.disable": true,
+        "swift.disableSwiftPackageManagerIntegration": true,
+        "swift.searchSubfoldersForPackages": false
+    },
+    "extensions": {
+        "unwantedRecommendations": [
+            "sswg.swift-lang"
+        ]
+    }
+}

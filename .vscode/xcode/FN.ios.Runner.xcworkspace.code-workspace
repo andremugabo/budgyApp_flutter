@@ -1,0 +1,62 @@
+{
+    "folders": [
+        {
+            "name": "Budgy/FN/ios/Runner.xcworkspace",
+            "path": "../.."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "FN/test": true,
+            "FN/pubspec.yaml": true,
+            "FN/pubspec.lock": true,
+            "FN/lib": true,
+            "FN/build": true,
+            "FN/budgy.iml": true,
+            "FN/assets": true,
+            "FN/android": true,
+            "FN/analysis_options.yaml": true,
+            "FN/README.md": true,
+            "FN/.metadata": true,
+            "FN/.idea": true,
+            "FN/.flutter-plugins-dependencies": true,
+            "FN/.flutter-plugins": true,
+            "FN/.dart_tool": true,
+            "resourceImage": true,
+            "BN": true,
+            ".vscode/xcode/fifo": true,
+            ".vscode/xcode/bundles": true
+        },
+        "search.exclude": {
+            "FN/test": true,
+            "FN/pubspec.yaml": true,
+            "FN/pubspec.lock": true,
+            "FN/lib": true,
+            "FN/build": true,
+            "FN/budgy.iml": true,
+            "FN/assets": true,
+            "FN/android": true,
+            "FN/analysis_options.yaml": true,
+            "FN/README.md": true,
+            "FN/.metadata": true,
+            "FN/.idea": true,
+            "FN/.flutter-plugins-dependencies": true,
+            "FN/.flutter-plugins": true,
+            "FN/.dart_tool": true,
+            "resourceImage": true,
+            "BN": true,
+            ".vscode/xcode/fifo": true,
+            ".vscode/xcode/bundles": true
+        },
+        "swift.autoGenerateLaunchConfigurations": false,
+        "swift.disableAutoResolve": true,
+        "swift.sourcekit-lsp.disable": true,
+        "swift.disableSwiftPackageManagerIntegration": true,
+        "swift.searchSubfoldersForPackages": false
+    },
+    "extensions": {
+        "unwantedRecommendations": [
+            "sswg.swift-lang"
+        ]
+    }
+}

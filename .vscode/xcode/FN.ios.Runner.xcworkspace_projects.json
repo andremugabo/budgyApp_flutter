@@ -1,0 +1,96 @@
+{
+    "dataType": "Map",
+    "value": [
+        [
+            "FN/ios/Runner.xcodeproj",
+            {
+                "timestamp": 1750949676350.1042,
+                "list": {
+                    "dataType": "Set",
+                    "value": [
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Flutter/AppFrameworkInfo.plist",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Flutter/Debug.xcconfig",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Flutter/Release.xcconfig",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Flutter/Generated.xcconfig",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/Base.lproj/Main.storyboard",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/Assets.xcassets",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/Base.lproj/LaunchScreen.storyboard",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/Info.plist",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/GeneratedPluginRegistrant.h",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/GeneratedPluginRegistrant.m",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/AppDelegate.swift",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner/Runner-Bridging-Header.h",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/RunnerTests/RunnerTests.swift",
+                            "isFolder": false
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios",
+                            "isFolder": true
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios",
+                            "isFolder": true
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner",
+                            "isFolder": true
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner",
+                            "isFolder": true
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/Runner",
+                            "isFolder": true
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios",
+                            "isFolder": true
+                        },
+                        {
+                            "path": "/Users/ntgr/Desktop/FromLenovoT470S/AUCA UNDERGRADUATE/COURSE NOTE/YEAR THREE SEMESTER TWO/INNOVATION/Flutter/Budgy/FN/ios/RunnerTests",
+                            "isFolder": true
+                        }
+                    ]
+                }
+            }
+        ]
+    ]
+}
