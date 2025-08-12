@@ -8,13 +8,14 @@ import com.andremugabo.Budgy.core.savings.model.Savings;
 import com.andremugabo.Budgy.core.util.user.EGender;
 import com.andremugabo.Budgy.core.util.user.EUserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,13 +26,15 @@ public class Users extends AbstractBaseEntity {
     private String firstName;
     @Column(name = "last_name",nullable = false)
     private String lastName;
-    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Invalid email format")
+    @Column(nullable = false, unique = true)
     private String email;
-    @Column(name = "gender",nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
     private EGender gender;
     @Column(name = "date_of_birth",nullable = true)
     @Past(message = "Data of birth must be in the past")
-    private Date dob;
+    private LocalDate dob;
     @Column(nullable = true)
     private String image;
     @Column(nullable = false)
@@ -39,13 +42,13 @@ public class Users extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role",nullable = false)
     private EUserRole role;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Savings> savings;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Income> incomes;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Expense> expenses;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Alert> alerts;
 
 
