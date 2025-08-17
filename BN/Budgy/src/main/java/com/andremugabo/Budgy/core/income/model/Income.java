@@ -5,6 +5,7 @@ import com.andremugabo.Budgy.core.base.AbstractBaseEntity;
 import com.andremugabo.Budgy.core.user.model.Users;
 import com.andremugabo.Budgy.core.util.income.EIncomeType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 public class Income extends AbstractBaseEntity {
 
     @Column(nullable = false)
+    @DecimalMin(value = "0.0", inclusive = false, message = "Amount must be greater than 0")
     private BigDecimal amount;
     @Column(nullable = false)
     private String source;

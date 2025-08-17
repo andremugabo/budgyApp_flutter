@@ -1,28 +1,57 @@
 package com.andremugabo.Budgy.core.expenses.service;
 
 import com.andremugabo.Budgy.core.expenses.model.Expense;
+import com.andremugabo.Budgy.core.expenses.repository.IExpenseRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public class ExpenseServiceImpl implements IExpensesService{
+@RequiredArgsConstructor
+@Service
+public class ExpenseServiceImpl implements IExpensesService {
+
+    private final IExpenseRepository expenseRepository;
+
+
+
     @Override
     public Expense registerExpense(Expense theExpense) {
-        return null;
+        return expenseRepository.save(theExpense);
     }
 
     @Override
-    public Expense updateExpense(Expense theExpense) {
-        return null;
+    public Optional<Expense> updateExpense(Expense theExpense) {
+        if(expenseRepository.existsById(theExpense.getId())) {
+            return Optional.of(expenseRepository.save(theExpense));
+        }
+        return Optional.empty();
     }
 
     @Override
-    public Expense deleteExpense(UUID id) {
-        return null;
+    public boolean deleteExpense(UUID id) {
+        if(expenseRepository.existsById(id)) {
+            expenseRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public List<Expense> getAllExpense() {
-        return List.of();
+    public List<Expense> getAllExpenses() {
+        return expenseRepository.findAll();
+    }
+
+    @Override
+    public List<Expense> getExpensesByUserId(UUID userId) {
+        return expenseRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<Expense> getExpensesByCategoryId(UUID categoryId) {
+        return expenseRepository.findByCategoryId(categoryId);
     }
 }
