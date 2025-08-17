@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -79,5 +80,14 @@ public class UserServiceImpl implements IUserService {
 
         user.setActive(false);
         return userRepository.save(user);
+    }
+
+    @Override
+    public Optional<Users> login(String email, String password) {
+        Optional<Users> user = userRepository.findByEmail(email);
+        if (user.isPresent() && password.equals(user.get().getPassword())) {
+            return user;
+        }
+        throw new RuntimeException("Invalid email or password");
     }
 }

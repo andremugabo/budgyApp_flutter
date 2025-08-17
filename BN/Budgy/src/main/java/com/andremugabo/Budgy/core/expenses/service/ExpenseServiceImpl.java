@@ -47,7 +47,7 @@ public class ExpenseServiceImpl implements IExpensesService {
 
     @Override
     public List<Expense> getExpensesByUserId(UUID userId) {
-        return expenseRepository.findByUserId(userId);
+        return expenseRepository.findByUser_Id(userId);
     }
 
     @Override

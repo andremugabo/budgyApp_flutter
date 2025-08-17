@@ -3,6 +3,9 @@ package com.andremugabo.Budgy.controller.user;
 import com.andremugabo.Budgy.core.user.model.Users;
 import com.andremugabo.Budgy.core.user.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -60,4 +64,26 @@ public class UserController {
         Users deletedUser = userService.deleteUser(id);
         return ResponseEntity.ok(deletedUser);
     }
+
+
+    @Operation(
+            summary = "Login a user",
+            description = "Authenticate a user with email and password",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "User logged in successfully",
+                            content = @Content(schema = @Schema(implementation = Users.class))),
+                    @ApiResponse(responseCode = "401", description = "Invalid email or password")
+            }
+    )
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Users loginRequest) {
+        try {
+            Optional<Users> user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+        }
+    }
+
+
 }
