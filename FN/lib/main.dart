@@ -1,7 +1,9 @@
-import 'package:budgy/ui/screens/home/dashboard_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:budgy/providers/auth_provider';
+import 'package:budgy/ui/screens/splash_screen/splash.dart';
 
-void main() => runApp(BudgyApp());
+void main() => runApp(const BudgyApp());
 
 class BudgyApp extends StatefulWidget {
   const BudgyApp({super.key});
@@ -13,11 +15,14 @@ class BudgyApp extends StatefulWidget {
 class _BudgyAppState extends State<BudgyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Student Budget Tracker App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: DashboardScreen(),
+    return ChangeNotifierProvider(
+      create: (_) => AuthProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Student Budget Tracker App',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: const SplashScreen(),
+      ),
     );
   }
 }

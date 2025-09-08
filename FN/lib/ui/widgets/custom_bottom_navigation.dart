@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:budgy/ui/screens/home/dashboard_screen.dart';
+import 'package:budgy/ui/screens/expenses/expenses_screen.dart';
+import 'package:budgy/ui/screens/income/incomes_screen.dart';
+import 'package:budgy/ui/screens/savings/savings_screen.dart';
+import 'package:budgy/ui/screens/settings/settings_screen.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
-  const CustomBottomNavigation({super.key});
+  const CustomBottomNavigation({super.key, this.currentIndex = 0});
+
+  final int currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +17,31 @@ class CustomBottomNavigation extends StatelessWidget {
       selectedItemColor: Colors.blue,
       unselectedItemColor: Colors.grey,
       showSelectedLabels: true,
+      currentIndex: currentIndex,
+      onTap: (i) {
+        if (i == currentIndex) return;
+        Widget screen;
+        switch (i) {
+          case 0:
+            screen = const DashboardScreen();
+            break;
+          case 1:
+            screen = const SavingsScreen();
+            break;
+          case 2:
+            screen = const IncomesScreen();
+            break;
+          case 3:
+            screen = const ExpensesScreen();
+            break;
+          case 4:
+          default:
+            screen = const SettingsScreen();
+        }
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => screen),
+        );
+      },
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),

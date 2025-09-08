@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:budgy/providers/auth_provider';
+import 'package:budgy/ui/screens/auth/login.dart';
+import 'package:budgy/ui/screens/profile/profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AuthProvider>().currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -30,13 +35,13 @@ class SettingsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "John Doe",
+                      user == null ? "Guest" : "${user.firstName} ${user.lastName}",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "john.doe@example.com",
+                      user?.email ?? "",
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -54,7 +59,9 @@ class SettingsScreen extends StatelessWidget {
                   context,
                   icon: Icons.person_outline,
                   title: "Profile",
-                  onTap: () => _navigateTo(context, "/profile"),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                  ),
                 ),
                 _buildSettingsTile(
                   context,
@@ -169,8 +176,11 @@ class SettingsScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // Implement logout logic
-                  Navigator.popUntil(context, (route) => route.isFirst);
+                  context.read<AuthProvider>().logout();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    (route) => false,
+                  );
                 },
                 child: const Text(
                   "Log Out",

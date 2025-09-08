@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -13,6 +13,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.4.6
   percent_indicator: ^4.2.2
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

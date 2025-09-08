@@ -5,12 +5,14 @@ class TransactionItem {
   final String title;
   final String date;
   final String amount;
+  final Map<String, dynamic>? extra;
 
   TransactionItem({
     required this.icon,
     required this.title,
     required this.date,
     required this.amount,
+    this.extra,
   });
 }
 
@@ -18,12 +20,14 @@ class TransactionSection extends StatelessWidget {
   final String sectionTitle;
   final Color color;
   final List<TransactionItem> items;
+  final void Function(TransactionItem)? onItemLongPress;
 
   const TransactionSection({
     super.key,
     required this.sectionTitle,
     required this.color,
     required this.items,
+    this.onItemLongPress,
   });
 
   @override
@@ -108,9 +112,12 @@ class TransactionSection extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            item.amount,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          GestureDetector(
+            onLongPress: onItemLongPress == null ? null : () => onItemLongPress!(item),
+            child: Text(
+              item.amount,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

@@ -1,43 +1,93 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class BalanceSummary extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:budgy/providers/auth_provider';
+import 'package:budgy/services/income_service.dart';
+import 'package:budgy/services/expense_service.dart';
+import 'package:budgy/services/api_service.dart';
+
+class BalanceSummary extends StatefulWidget {
   const BalanceSummary({super.key});
 
   @override
+  State<BalanceSummary> createState() => _BalanceSummaryState();
+}
+
+class _BalanceSummaryState extends State<BalanceSummary> {
+  double? totalIncome;
+  double? totalExpense;
+  late final IncomeService _incomeService;
+  late final ExpenseService _expenseService;
+  Future<void>? _loadFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    final api = ApiService();
+    _incomeService = IncomeService(api);
+    _expenseService = ExpenseService(api);
+    _loadFuture = _load();
+  }
+
+  Future<void> _load() async {
+    final user = context.read<AuthProvider>().currentUser;
+    if (user == null) return;
+    final incomes = await _incomeService.getByUser(user.id);
+    final expenses = await _expenseService.getByUser(user.id);
+    final incomeSum = incomes.fold<double>(0, (p, e) => p + e.amount);
+    final expenseSum = expenses.fold<double>(0, (p, e) => p + e.amount);
+    setState(() {
+      totalIncome = incomeSum;
+      totalExpense = expenseSum;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return FutureBuilder<void>(
+      future: _loadFuture,
+      builder: (context, snapshot) {
+        final ti = totalIncome;
+        final te = totalExpense;
+        final loading = snapshot.connectionState == ConnectionState.waiting && (ti == null || te == null);
+        final balance = (ti ?? 0) - (te ?? 0);
+        final ratio = (ti ?? 0) == 0 ? 0.0 : ((te ?? 0) / (ti ?? 1)).clamp(0.0, 1.0);
+        return Column(
           children: [
-            _BalanceTile(
-              icon: Icon(Icons.account_balance_wallet, color: Colors.green),
-              label: "Total Balance",
-              amount: "35,650 Frw",
-              color: Colors.green,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _BalanceTile(
+                  icon: const Icon(Icons.account_balance_wallet, color: Colors.green),
+                  label: "Total Balance",
+                  amount: loading ? '...' : "${balance.toStringAsFixed(2)} Frw",
+                  color: Colors.green,
+                ),
+                Container(width: 1.5, height: 40, color: Colors.grey.shade300),
+                _BalanceTile(
+                  icon: const Icon(Icons.money_off, color: Colors.red),
+                  label: "Total Expense",
+                  amount: loading ? '...' : "-${(te ?? 0).toStringAsFixed(2)} Frw",
+                  color: Colors.red,
+                ),
+              ],
             ),
-            Container(width: 1.5, height: 40, color: Colors.grey.shade300),
-            _BalanceTile(
-              icon: Icon(Icons.money_off, color: Colors.red),
-              label: "Total Expense",
-              amount: "-1,780 Frw",
-              color: Colors.red,
+            const SizedBox(height: 12),
+            LinearProgressIndicator(
+              value: loading ? null : ratio,
+              backgroundColor: Colors.grey.shade300,
+              color: Colors.blue,
+              minHeight: 10,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              loading ? "Loading..." : "${(ratio * 100).toStringAsFixed(0)}% of income spent",
+              style: TextStyle(color: Colors.grey.shade600),
             ),
           ],
-        ),
-        const SizedBox(height: 12),
-        LinearProgressIndicator(
-          value: 0.35,
-          backgroundColor: Colors.grey.shade300,
-          color: Colors.blue,
-          minHeight: 10,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          "35% Of Your Expenses, Look Good.",
-          style: TextStyle(color: Colors.grey.shade600),
-        ),
-      ],
+        );
+      },
     );
   }
 }

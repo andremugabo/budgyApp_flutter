@@ -3,6 +3,13 @@ import 'package:budgy/ui/widgets/custom_app_bar.dart';
 import 'package:budgy/ui/widgets/custom_bottom_navigation.dart';
 import 'package:budgy/ui/widgets/saving_goals_card.dart';
 import 'package:budgy/ui/widgets/transaction_section.dart';
+import 'package:budgy/models/income.dart';
+import 'package:budgy/models/expense.dart';
+import 'package:budgy/services/api_service.dart';
+import 'package:budgy/services/income_service.dart';
+import 'package:budgy/services/expense_service.dart';
+import 'package:provider/provider.dart';
+import 'package:budgy/providers/auth_provider';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -13,6 +20,64 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  List<Income> _recentIncome = const [];
+  List<Expense> _recentExpenses = const [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRecent();
+  }
+
+  Future<void> _loadRecent() async {
+    final user = context.read<AuthProvider>().currentUser;
+    if (user == null) return;
+    final api = ApiService();
+    final incomes = await IncomeService(api).getByUser(user.id);
+    final expenses = await ExpenseService(api).getByUser(user.id);
+    setState(() {
+      _recentIncome = incomes.take(4).toList();
+      _recentExpenses = expenses.take(4).toList();
+    });
+  }
+
+  Future<void> _confirmDeleteIncome(String id) async {
+    final res = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Delete Income'),
+        content: const Text('Delete this recent income?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+          ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
+        ],
+      ),
+    );
+    if (res == true) {
+      final api = ApiService();
+      await IncomeService(api).deleteById(id);
+      await _loadRecent();
+    }
+  }
+
+  Future<void> _confirmDeleteExpense(String id) async {
+    final res = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Delete Expense'),
+        content: const Text('Delete this recent expense?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+          ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
+        ],
+      ),
+    );
+    if (res == true) {
+      final api = ApiService();
+      await ExpenseService(api).deleteById(id);
+      await _loadRecent();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,66 +96,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
             TransactionSection(
               sectionTitle: "Income",
               color: Colors.green,
-              items: [
-                TransactionItem(
-                  icon: Icons.work,
-                  title: "Salary",
-                  date: "18:27 - April 30",
-                  amount: "800,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.card_giftcard,
-                  title: "Allowance",
-                  date: "18:27 - April 30",
-                  amount: "300,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.trending_up,
-                  title: "Investment",
-                  date: "18:27 - April 30",
-                  amount: "500,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.account_balance,
-                  title: "Interest",
-                  date: "18:27 - April 30",
-                  amount: "200,000 Frw",
-                ),
-              ],
+              items: _recentIncome
+                  .map((e) => TransactionItem(
+                        icon: Icons.trending_up,
+                        title: e.source,
+                        date: '',
+                        amount: "+${e.amount.toStringAsFixed(2)} Frw",
+                        extra: {'type': 'income', 'id': e.id},
+                      ))
+                  .toList(),
+              onItemLongPress: (item) {
+                final id = item.extra?['id'] as String?;
+                if (id != null) _confirmDeleteIncome(id);
+              },
             ),
 
             const SizedBox(height: 20),
 
             // Savings Section
+            // Savings section left as static for now
             TransactionSection(
               sectionTitle: "Savings",
               color: Colors.blue,
-              items: [
-                TransactionItem(
-                  icon: Icons.savings,
-                  title: "Emergency Fund",
-                  date: "18:27 - April 30",
-                  amount: "500,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.savings,
-                  title: "Vacation Fund",
-                  date: "18:27 - April 30",
-                  amount: "200,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.house,
-                  title: "Home Savings",
-                  date: "18:27 - April 30",
-                  amount: "600,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.school,
-                  title: "Education Savings",
-                  date: "18:27 - April 30",
-                  amount: "300,000 Frw",
-                ),
-              ],
+              items: const [],
             ),
 
             const SizedBox(height: 20),
@@ -99,32 +127,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
             TransactionSection(
               sectionTitle: "Expenses",
               color: Colors.red,
-              items: [
-                TransactionItem(
-                  icon: Icons.fastfood,
-                  title: "Food",
-                  date: "18:27 - April 30",
-                  amount: "150,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.directions_bus,
-                  title: "Transport",
-                  date: "18:27 - April 30",
-                  amount: "50,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.local_hospital,
-                  title: "Health",
-                  date: "18:27 - April 30",
-                  amount: "120,000 Frw",
-                ),
-                TransactionItem(
-                  icon: Icons.shopping_cart,
-                  title: "Shopping",
-                  date: "18:27 - April 30",
-                  amount: "250,000 Frw",
-                ),
-              ],
+              items: _recentExpenses
+                  .map((e) => TransactionItem(
+                        icon: Icons.shopping_cart,
+                        title: e.category?.name ?? 'Expense',
+                        date: '',
+                        amount: "-${e.amount.toStringAsFixed(2)} Frw",
+                        extra: {'type': 'expense', 'id': e.id},
+                      ))
+                  .toList(),
+              onItemLongPress: (item) {
+                final id = item.extra?['id'] as String?;
+                if (id != null) _confirmDeleteExpense(id);
+              },
             ),
           ],
         ),

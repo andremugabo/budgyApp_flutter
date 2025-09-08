@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    container_name: budgy_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-budgy_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+  backend:
+    build:
+      context: ./BN/Budgy
+      dockerfile: Dockerfile
+    container_name: budgy_backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-budgy_db}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-123}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+
+volumes:
+  db_data:
+
+
