@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:budgy/providers/auth_provider';
+import 'package:budgy/providers/auth_provider.dart';
 import 'package:budgy/ui/screens/auth/login.dart';
 import 'package:budgy/ui/screens/profile/profile_screen.dart';
 
@@ -10,6 +10,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthProvider>().currentUser;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -35,10 +36,12 @@ class SettingsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user == null ? "Guest" : "${user.firstName} ${user.lastName}",
+                      user == null
+                          ? "Guest"
+                          : "${user.firstName} ${user.lastName}",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     Text(
                       user?.email ?? "",
@@ -60,7 +63,8 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.person_outline,
                   title: "Profile",
                   onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()),
                   ),
                 ),
                 _buildSettingsTile(
@@ -158,37 +162,35 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _navigateTo(BuildContext context, String route) {
-    // Implement navigation logic
     Navigator.pushNamed(context, route);
   }
 
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text("Log Out"),
-            content: const Text("Are you sure you want to log out?"),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text("Cancel"),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthProvider>().logout();
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    (route) => false,
-                  );
-                },
-                child: const Text(
-                  "Log Out",
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
+      builder: (dialogContext) => AlertDialog(
+        title: const Text("Log Out"),
+        content: const Text("Are you sure you want to log out?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text("Cancel"),
           ),
+          TextButton(
+            onPressed: () {
+              context.read<AuthProvider>().logout();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false,
+              );
+            },
+            child: const Text(
+              "Log Out",
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

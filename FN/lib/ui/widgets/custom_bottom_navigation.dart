@@ -20,6 +20,7 @@ class CustomBottomNavigation extends StatelessWidget {
       currentIndex: currentIndex,
       onTap: (i) {
         if (i == currentIndex) return;
+
         Widget screen;
         switch (i) {
           case 0:
@@ -38,8 +39,10 @@ class CustomBottomNavigation extends StatelessWidget {
           default:
             screen = const SettingsScreen();
         }
+
+        // Use the existing context here, NOT _
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => screen),
+          MaterialPageRoute(builder: (context) => screen),
         );
       },
       items: const [
