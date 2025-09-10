@@ -7,6 +7,7 @@ import com.andremugabo.Budgy.core.income.model.Income;
 import com.andremugabo.Budgy.core.savings.model.Savings;
 import com.andremugabo.Budgy.core.util.user.EGender;
 import com.andremugabo.Budgy.core.util.user.EUserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
@@ -38,17 +39,22 @@ public class Users extends AbstractBaseEntity {
     @Column(nullable = true)
     private String image;
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role",nullable = false)
     private EUserRole role;
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Savings> savings;
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Income> incomes;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Expense> expenses;
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Alert> alerts;
 
 

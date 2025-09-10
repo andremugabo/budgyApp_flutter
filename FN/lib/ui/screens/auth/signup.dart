@@ -1,6 +1,7 @@
 import 'package:budgy/models/user.dart';
 import 'package:budgy/ui/screens/home/dashboard_screen.dart';
 import 'package:budgy/ui/widgets/logo_header.dart';
+import 'package:budgy/ui/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:budgy/providers/auth_provider';
@@ -102,10 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   decoration: const InputDecoration(labelText: 'Gender'),
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _loading ? null : _submit,
-                  child: _loading ? const CircularProgressIndicator() : const Text('Create account'),
-                ),
+                PrimaryButton(label: 'Create account', onPressed: _submit, loading: _loading),
               ],
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:budgy/ui/widgets/logo_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:budgy/providers/auth_provider.dart';
+import 'package:budgy/ui/widgets/primary_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -74,19 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 validator: (v) => v == null || v.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _loading ? null : _submit,
-                child: _loading
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Text('Login'),
-              ),
+              PrimaryButton(label: 'Login', onPressed: _submit, loading: _loading),
               TextButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const SignupScreen()),
