@@ -1,8 +1,9 @@
 import 'package:budgy/ui/screens/home/dashboard_screen.dart';
 import 'package:budgy/ui/screens/auth/signup.dart';
+import 'package:budgy/ui/widgets/logo_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:budgy/providers/auth_provider';
+import 'package:budgy/providers/auth_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,10 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
     try {
-      await context.read<AuthProvider>().login(_email.text.trim(), _password.text);
+      await context.read<AuthProvider>().login(
+            _email.text.trim(),
+            _password.text,
+          );
+
       if (!mounted) return;
+
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const DashboardScreen()),
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -53,6 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const LogoHeader(),
+              const SizedBox(height: 24),
               TextFormField(
                 controller: _email,
                 decoration: const InputDecoration(labelText: 'Email'),
@@ -68,11 +76,20 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _loading ? null : _submit,
-                child: _loading ? const CircularProgressIndicator() : const Text('Login'),
+                child: _loading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text('Login'),
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const SignupScreen()),
+                  MaterialPageRoute(builder: (context) => const SignupScreen()),
                 ),
                 child: const Text('No account? Sign up'),
               ),
@@ -83,6 +100,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
-

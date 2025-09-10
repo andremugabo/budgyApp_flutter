@@ -17,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _first = TextEditingController();
   final _last = TextEditingController();
   final _email = TextEditingController();
-  Gender _gender = Gender.OTHER;
+  Gender _gender = Gender.MALE;
   bool _saving = false;
 
   @override

@@ -36,10 +36,10 @@ class AuthService {
     if (decoded is Map<String, dynamic>) {
       return User.fromJson(decoded);
     }
-    if (decoded is List && decoded.isNotEmpty) {
-      return User.fromJson(decoded.first as Map<String, dynamic>);
+    if (decoded is Map && decoded['id'] != null) {
+      return User.fromJson(Map<String, dynamic>.from(decoded));
     }
-    throw Exception('Invalid login response');
+    throw Exception('Invalid login response: ${res.body.substring(0, res.body.length > 200 ? 200 : res.body.length)}');
   }
 }
 

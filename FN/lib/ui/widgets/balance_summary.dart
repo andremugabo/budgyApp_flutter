@@ -53,39 +53,47 @@ class _BalanceSummaryState extends State<BalanceSummary> {
         final loading = snapshot.connectionState == ConnectionState.waiting && (ti == null || te == null);
         final balance = (ti ?? 0) - (te ?? 0);
         final ratio = (ti ?? 0) == 0 ? 0.0 : ((te ?? 0) / (ti ?? 1)).clamp(0.0, 1.0);
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
               children: [
-                _BalanceTile(
-                  icon: const Icon(Icons.account_balance_wallet, color: Colors.green),
-                  label: "Total Balance",
-                  amount: loading ? '...' : "${balance.toStringAsFixed(2)} Frw",
-                  color: Colors.green,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _BalanceTile(
+                      icon: const Icon(Icons.account_balance_wallet, color: Colors.green),
+                      label: "Total Balance",
+                      amount: loading ? '...' : "${balance.toStringAsFixed(2)} Frw",
+                      color: Colors.green,
+                    ),
+                    Container(width: 1.5, height: 40, color: Colors.grey.shade300),
+                    _BalanceTile(
+                      icon: const Icon(Icons.money_off, color: Colors.red),
+                      label: "Total Expense",
+                      amount: loading ? '...' : "-${(te ?? 0).toStringAsFixed(2)} Frw",
+                      color: Colors.red,
+                    ),
+                  ],
                 ),
-                Container(width: 1.5, height: 40, color: Colors.grey.shade300),
-                _BalanceTile(
-                  icon: const Icon(Icons.money_off, color: Colors.red),
-                  label: "Total Expense",
-                  amount: loading ? '...' : "-${(te ?? 0).toStringAsFixed(2)} Frw",
-                  color: Colors.red,
+                const SizedBox(height: 16),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: LinearProgressIndicator(
+                    value: loading ? null : ratio,
+                    backgroundColor: Colors.grey.shade300,
+                    color: Theme.of(context).colorScheme.primary,
+                    minHeight: 10,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  loading ? "Loading..." : "${(ratio * 100).toStringAsFixed(0)}% of income spent",
+                  style: TextStyle(color: Colors.grey.shade600),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            LinearProgressIndicator(
-              value: loading ? null : ratio,
-              backgroundColor: Colors.grey.shade300,
-              color: Colors.blue,
-              minHeight: 10,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              loading ? "Loading..." : "${(ratio * 100).toStringAsFixed(0)}% of income spent",
-              style: TextStyle(color: Colors.grey.shade600),
-            ),
-          ],
+          ),
         );
       },
     );

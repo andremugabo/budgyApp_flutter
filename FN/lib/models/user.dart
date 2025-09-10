@@ -1,5 +1,5 @@
 
-enum Gender { MALE, FEMALE, OTHER }
+enum Gender { MALE, FEMALE }
 enum UserRole { ADMIN, USER }
 
 class User {

@@ -59,7 +59,12 @@ class TransactionSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        ...items.map((item) => _transactionItem(item)).toList(),
+        ...items.map((item) => Card(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: _transactionItem(item),
+          ),
+        )).toList(),
       ],
     );
   }

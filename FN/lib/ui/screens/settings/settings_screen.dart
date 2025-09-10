@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:budgy/providers/auth_provider.dart';
 import 'package:budgy/ui/screens/auth/login.dart';
 import 'package:budgy/ui/screens/profile/profile_screen.dart';
+import 'package:budgy/providers/theme_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -91,7 +92,12 @@ class SettingsScreen extends StatelessWidget {
                   context,
                   icon: Icons.dark_mode_outlined,
                   title: "Dark Mode",
-                  trailing: Switch(value: false, onChanged: (v) {}),
+                  trailing: Consumer<ThemeProvider>(
+                    builder: (context, t, _) => Switch(
+                      value: t.mode == ThemeMode.dark,
+                      onChanged: (v) => t.toggle(v),
+                    ),
+                  ),
                 ),
                 _buildSectionHeader("Support"),
                 _buildSettingsTile(

@@ -1,5 +1,6 @@
 import 'package:budgy/models/user.dart';
 import 'package:budgy/ui/screens/home/dashboard_screen.dart';
+import 'package:budgy/ui/widgets/logo_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:budgy/providers/auth_provider';
@@ -65,6 +66,8 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const LogoHeader(),
+                const SizedBox(height: 24),
                 TextFormField(
                   controller: _firstName,
                   decoration: const InputDecoration(labelText: 'First name'),

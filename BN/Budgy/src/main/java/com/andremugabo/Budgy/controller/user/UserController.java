@@ -79,9 +79,12 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Users loginRequest) {
         try {
             Optional<Users> user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
-            return ResponseEntity.ok(user);
+            if (user.isPresent()) {
+                return ResponseEntity.ok(user.get());
+            }
+            return ResponseEntity.status(401).body("Invalid email or password");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(401).body(e.getMessage());
+            return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
 
