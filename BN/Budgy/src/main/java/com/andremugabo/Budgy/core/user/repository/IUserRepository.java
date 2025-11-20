@@ -2,7 +2,6 @@ package com.andremugabo.Budgy.core.user.repository;
 
 import com.andremugabo.Budgy.core.user.model.Users;
 import jakarta.validation.constraints.Email;
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
