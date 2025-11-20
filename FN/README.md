@@ -165,17 +165,30 @@ If you add a **new folder** (e.g. `assets/illustrations/`), remember to include 
 
 > Note: UI may evolve, but these screenshots show the main flows.
 
+### Swagger
+
+![Swagger](/screenshorts/swaggerapp.png)
+
+
+![Swagger](/screenshorts/twoswagger.png)
+
 ### Dashboard
 
-![Budgy dashboard](docs/screenshots/dashboard.png)
+![Budgy dashboard](/screenshorts/dashboard.png)
 
-### Income list
 
-![Income list](docs/screenshots/income_list.png)
+### Dark Dashboard
+
+
+![Budgy dashboard](/screenshorts/darkdashboard.png)
+
+### SplashScreen
+
+![Income list](/screenshots/splashscreen.png)
 
 ### Settings & Profile
 
-![Settings screen](docs/screenshots/settings.png)
+![Settings screen](screenshots/setting.png)
 
 ## Development notes
 
