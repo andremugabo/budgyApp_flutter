@@ -189,6 +189,9 @@ If you add a **new folder** (e.g. `assets/illustrations/`), remember to include 
 
 ![Settings screen](/screenshorts/setting.png)
 
+
+![Settings screen](/screenshorts/profile.png)
+
 ## Development notes
 
 - This frontend assumes the API contract of the Spring Boot app in `../BN/Budgy`.
