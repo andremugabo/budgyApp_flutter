@@ -4,6 +4,7 @@ package com.andremugabo.Budgy.core.income.model;
 import com.andremugabo.Budgy.core.base.AbstractBaseEntity;
 import com.andremugabo.Budgy.core.user.model.Users;
 import com.andremugabo.Budgy.core.util.income.EIncomeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class Income extends AbstractBaseEntity {
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private Users users;
 
 

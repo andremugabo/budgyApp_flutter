@@ -17,12 +17,12 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 ThemeData buildLightTheme() {
-  const seed = Color(0xFF2F80ED);
+  const seed = Color(0xFFFFB321); // golden primary based on logo
   final colorScheme = ColorScheme.fromSeed(seedColor: seed);
   return ThemeData(
     colorScheme: colorScheme,
     useMaterial3: true,
-    scaffoldBackgroundColor: Colors.grey[50],
+    scaffoldBackgroundColor: const Color(0xFFFFFBF3),
     cardTheme: CardTheme(
       elevation: 0,
       color: Colors.white,
@@ -53,11 +53,12 @@ ThemeData buildLightTheme() {
 }
 
 ThemeData buildDarkTheme() {
-  const seed = Color(0xFF2F80ED);
+  const seed = Color(0xFFFFB321); // golden primary based on logo
   final colorScheme = ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark);
   return ThemeData(
     colorScheme: colorScheme,
     useMaterial3: true,
+    scaffoldBackgroundColor: const Color(0xFF05060A),
     cardTheme: CardTheme(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:budgy/providers/auth_provider';
+import 'package:budgy/providers/auth_provider.dart';
 import 'package:budgy/ui/screens/auth/login.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -8,16 +8,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return AppBar(
-      backgroundColor: Colors.white,
-      title: const Text(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      title: Text(
         "Overview",
-        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+        style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
       ),
       actions: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.notifications, color: Colors.blue),
+          icon: Icon(Icons.notifications, color: theme.colorScheme.primary),
         ),
         IconButton(
           onPressed: () async {
@@ -29,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               );
             }
           },
-          icon: const Icon(Icons.logout, color: Colors.blue),
+          icon: Icon(Icons.logout, color: theme.colorScheme.primary),
           tooltip: 'Logout',
         ),
         Padding(

@@ -3,13 +3,12 @@ package com.andremugabo.Budgy.core.expenses.model;
 import com.andremugabo.Budgy.core.base.AbstractBaseEntity;
 import com.andremugabo.Budgy.core.expenseCategory.model.ExpenseCategory;
 import com.andremugabo.Budgy.core.user.model.Users;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.math.BigDecimal;
-
 
 @Entity
 @Getter
@@ -27,7 +26,8 @@ public class Expense extends AbstractBaseEntity {
     @JoinColumn(name = "category_id")
     private ExpenseCategory category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    @JsonIgnore
+    private Users users;
 }

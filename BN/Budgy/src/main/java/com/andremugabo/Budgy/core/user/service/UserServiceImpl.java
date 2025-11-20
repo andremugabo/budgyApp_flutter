@@ -1,5 +1,7 @@
 package com.andremugabo.Budgy.core.user.service;
 
+import com.andremugabo.Budgy.core.user.model.UserLoginDto;
+import com.andremugabo.Budgy.core.user.model.UserRegisterDto;
 import com.andremugabo.Budgy.core.user.model.Users;
 import com.andremugabo.Budgy.core.user.repository.IUserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,19 +21,23 @@ public class UserServiceImpl implements IUserService {
     private final IUserRepository userRepository;
 
     @Override
-    public Users registerUser(Users theUser) {
-        // Validate email uniqueness
-        if (userRepository.existsByEmail(theUser.getEmail())) {
-            throw new IllegalArgumentException("Email already in use: " + theUser.getEmail());
+    @Transactional
+    public Users registerUser(UserRegisterDto userRegisterDto) {
+        if (userRepository.existsByEmail(userRegisterDto.getEmail())) {
+            throw new IllegalArgumentException("Email already in use: " + userRegisterDto.getEmail());
         }
 
-        // Ensure 'active' defaults to true for new users
-        if (theUser.getActive() == null) {
-            theUser.setActive(true);
-        }
+        Users user = new Users();
+        user.setFirstName(userRegisterDto.getFirstName());
+        user.setLastName(userRegisterDto.getLastName());
+        user.setEmail(userRegisterDto.getEmail());
+        user.setGender(userRegisterDto.getGender());
+        user.setDob(userRegisterDto.getDob());
+        user.setImage(userRegisterDto.getImage());
+        user.setPassword(userRegisterDto.getPassword());
+        user.setRole(userRegisterDto.getRole());
 
-        // TODO: Hash password before saving
-        return userRepository.save(theUser);
+        return userRepository.save(user);
     }
 
     @Override
@@ -83,11 +89,22 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Optional<Users> login(String email, String password) {
-        Optional<Users> user = userRepository.findByEmail(email);
-        if (user.isPresent() && password.equals(user.get().getPassword())) {
+    @Transactional(readOnly = true)
+    public Optional<Users> login(UserLoginDto userLoginDto) {
+        // Validate input
+        if (userLoginDto == null || userLoginDto.getEmail() == null || userLoginDto.getPassword() == null) {
+            throw new IllegalArgumentException("Email and password are required");
+        }
+
+        // Find user by email
+        Optional<Users> user = userRepository.findByEmail(userLoginDto.getEmail());
+
+        // Verify user exists and password matches
+        if (user.isPresent() && userLoginDto.getPassword().equals(user.get().getPassword())) {
             return user;
         }
-        throw new RuntimeException("Invalid email or password");
+
+        // Return empty if authentication fails
+        return Optional.empty();
     }
 }

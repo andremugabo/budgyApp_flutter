@@ -12,6 +12,8 @@ class User {
     this.dob,
     this.image,
     required this.role,
+    this.createdAt,
+    this.updatedAt,
   });
 
   final String id;
@@ -22,6 +24,8 @@ class User {
   final DateTime? dob;
   final String? image;
   final UserRole role;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -33,6 +37,12 @@ class User {
       dob: json['dob'] != null ? DateTime.parse(json['dob'] as String) : null,
       image: json['image'] as String?,
       role: UserRole.values.firstWhere((r) => r.name == (json['role'] as String)),
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
     );
   }
 
@@ -46,6 +56,8 @@ class User {
       'dob': dob?.toIso8601String(),
       'image': image,
       'role': role.name,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 }

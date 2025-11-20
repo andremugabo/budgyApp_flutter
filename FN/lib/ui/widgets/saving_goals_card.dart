@@ -11,10 +11,11 @@ class SavingGoalsCard extends StatefulWidget {
 class _SavingGoalsCardState extends State<SavingGoalsCard> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: theme.colorScheme.primary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

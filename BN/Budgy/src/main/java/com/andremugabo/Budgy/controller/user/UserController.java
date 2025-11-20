@@ -1,5 +1,7 @@
 package com.andremugabo.Budgy.controller.user;
 
+import com.andremugabo.Budgy.core.user.model.UserLoginDto;
+import com.andremugabo.Budgy.core.user.model.UserRegisterDto;
 import com.andremugabo.Budgy.core.user.model.Users;
 import com.andremugabo.Budgy.core.user.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,11 +9,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,9 +29,13 @@ public class UserController {
     // Create User
     @Operation(summary = "Register a new user", description = "Creates a new Budgy user with the provided details")
     @PostMapping
-    public ResponseEntity<Users> createUser(@RequestBody Users theUser) {
-        Users createdUser = userService.registerUser(theUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
+        try {
+            Users user = userService.registerUser(userRegisterDto);
+            return ResponseEntity.ok(user);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     // Update User
@@ -76,15 +82,15 @@ public class UserController {
             }
     )
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Users loginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserLoginDto userLoginDto) {
         try {
-            Optional<Users> user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+            Optional<Users> user = userService.login(userLoginDto);
             if (user.isPresent()) {
                 return ResponseEntity.ok(user.get());
             }
-            return ResponseEntity.status(401).body("Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(401).body("Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }
     }
 

@@ -19,4 +19,6 @@ public interface IExpensesService {
     List<Expense> getExpensesByUserId(UUID userId);
 
     List<Expense> getExpensesByCategoryId(UUID categoryId);
+
+    List<Expense> getExpensesByUserIdAndCategoryId(UUID userId, UUID categoryId);
 }

@@ -3,6 +3,7 @@ package com.andremugabo.Budgy.core.savings.model;
 import com.andremugabo.Budgy.core.base.AbstractBaseEntity;
 import com.andremugabo.Budgy.core.user.model.Users;
 import com.andremugabo.Budgy.core.util.savings.ESavingsPriority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,8 @@ public class Savings extends AbstractBaseEntity {
     @Column(columnDefinition = "TEXT",nullable = false)
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private Users users;
 
 }

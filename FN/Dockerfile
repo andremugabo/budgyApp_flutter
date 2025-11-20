@@ -1,6 +1,6 @@
 # Build Flutter web (from mobile codebase)
 FROM ghcr.io/cirruslabs/flutter:3.24.3 AS build
-ARG BUDGY_API_BASE_URL=http://backend:8080
+ARG BUDGY_API_BASE_URL=http://10.150.12.17:8080
 WORKDIR /app
 
 # Run as root (default)—no chown needed

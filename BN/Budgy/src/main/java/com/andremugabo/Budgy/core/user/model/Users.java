@@ -19,43 +19,54 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users extends AbstractBaseEntity {
-    @Column(name = "first_name",nullable = false)
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name",nullable = false)
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
     @Email(message = "Invalid email format")
     @Column(nullable = false, unique = true)
     private String email;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
     private EGender gender;
-    @Column(name = "date_of_birth",nullable = true)
-    @Past(message = "Data of birth must be in the past")
+
+    @Column(name = "date_of_birth")
+    @Past(message = "Date of birth must be in the past")
     private LocalDate dob;
-    @Column(nullable = true)
+
+    @Column
     private String image;
+
     @Column(nullable = false)
-    @JsonIgnore
     private String password;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role",nullable = false)
+    @Column(name = "user_role", nullable = false)
     private EUserRole role;
-    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<Savings> savings;
-    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<Income> incomes;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<Expense> expenses;
-    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<Alert> alerts;
 
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Savings> savings;
 
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Income> incomes;
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Expense> expenses;
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Alert> alerts;
 }

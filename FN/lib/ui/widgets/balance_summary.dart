@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:budgy/providers/auth_provider';
+import 'package:budgy/providers/auth_provider.dart';
 import 'package:budgy/services/income_service.dart';
 import 'package:budgy/services/expense_service.dart';
 import 'package:budgy/services/api_service.dart';

@@ -5,7 +5,11 @@ import 'package:http/http.dart' as http;
 class ApiService {
   ApiService({http.Client? client, String? baseUrl})
       : _client = client ?? http.Client(),
-        _baseUrl = baseUrl ?? const String.fromEnvironment('BUDGY_API_BASE_URL', defaultValue: 'http://localhost:8080');
+        _baseUrl = baseUrl ?? const String.fromEnvironment(
+          'BUDGY_API_BASE_URL',
+          // 10.0.2.2 points to the host machine when using Android emulator
+          defaultValue: 'http://localhost:8080',
+        );
 
   final http.Client _client;
   final String _baseUrl;
