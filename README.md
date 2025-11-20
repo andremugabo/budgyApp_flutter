@@ -167,7 +167,6 @@ If you add a **new folder** (e.g. `assets/illustrations/`), remember to include 
 
 ### Swagger
 
-![Swagger](/screenshorts/swaggerapp.png)
 
 
 ![Swagger](/screenshorts/twoswagger.png)
@@ -184,11 +183,11 @@ If you add a **new folder** (e.g. `assets/illustrations/`), remember to include 
 
 ### SplashScreen
 
-![Income list](/screenshots/splashscreen.png)
+![Income list](/screenshorts/splashscreen.png)
 
 ### Settings & Profile
 
-![Settings screen](screenshots/setting.png)
+![Settings screen](/screenshorts/setting.png)
 
 ## Development notes
 
