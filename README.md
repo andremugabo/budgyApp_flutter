@@ -173,6 +173,9 @@ If you add a **new folder** (e.g. `assets/illustrations/`), remember to include 
 
 ### Dashboard
 
+![Budgy dashboard](/screenshorts/login.png)
+
+
 ![Budgy dashboard](/screenshorts/dashboard.png)
 
 
